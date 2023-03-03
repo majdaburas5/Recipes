@@ -1,0 +1,38 @@
+body {
+  background-color: slategray;
+}
+
+.results {
+  width: 300px;
+  border: 15px solid;
+  padding: 50px;
+  margin: 20px;
+  background-color: darkgoldenrod;
+}
+
+.recipe-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.picture {
+  width: 300px;
+  height: 300px;
+  border-radius: 30px;
+}
+
+h3 {
+  text-align: center;
+}
+
+.ingredients {
+  text-align: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.trash {
+  width: 70px;
+  height: 70px;
+  display: block;
+}

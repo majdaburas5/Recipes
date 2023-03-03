@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recipe</title>
+    <script src="./jquery/dist/jquery.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="./handlebars/dist/handlebars.js"></script>
+    <script src="./ajax/lib/ajax.js"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <input
+        type="text"
+        id="recipe-input"
+        placeholder="what's your ingredient ?"
+      />
+      <button onclick="fetchRecipeData()" id="btn">Search</button><br /><br />
+      <button onclick="renderFavorites()" class="favoriteBtn">favorite</button> 
+      <input type="checkbox" id="dairy" name="dairy"/>
+      <label for="dairy">Dairy</label> 
+      <input type="checkbox" id="gluten" name="gluten"/>
+      <label for="gluten">Gluten</label>
+    </div>
+    <div class="recipe-container"></div>
+    </div>
+    <script id="recipe-data" type="text/x-handlebars-template">
+      {{#each results}}
+        <div class="results">
+          <a href="{{href}}">
+            <h3>{{title}}</h3>
+          </a><br /><br />
+          <img
+            src="{{thumbnail}}"
+            class="picture"
+            {{#each ingredients}}
+            data-id="{{this}}"
+            {{/each}}
+          />
+          <button class="favorite" data-id="{{idMeal}}">Add Favorite</button>
+          <h2>Ingredients : </h2>
+          <div class="ingredients">
+          {{#each ingredients}}
+          <ul>
+            <li>{{this}}</li><br />
+          </ul>
+          {{/each}}
+        </div>
+        </div>
+      {{/each}}
+    </script>
+
+    <script id="favorite-data" type="text/x-handlebars-template">
+      {{#each results}}
+        <div class="results">
+          <button onclick="deleteFavorite()" class="delete" data-id="{{idMeal}}" >
+            Delete
+          </button>
+        {{!-- <i class="fa-solid fa-trash" data-id="{{mealId}}" ></i> --}}
+            <a href="{{href}}">
+            <h3>{{title}}</h3>
+          </a><br /><br />
+          <img
+            src="{{thumbnail}}"
+            class="picture"
+            {{#each ingredients}}
+            data-id="{{this}}"
+            {{/each}}
+          />
+          <h2>Ingredients : </h2>
+          <div class="ingredients">
+          {{#each ingredients}}
+          <ul>
+            <li>{{this}}</li><br />
+          </ul>
+          {{/each}}
+        </div>
+        </div>
+      {{/each}}
+    </script>
+    <script src="main.js"></script>
+  </body>
+</html>
