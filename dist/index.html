@@ -12,9 +12,9 @@
     ></script>
     <script src="./handlebars/dist/handlebars.js"></script>
     <script src="./ajax/lib/ajax.js"></script>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
-  </head>
+    <script src="./font-awesome/css/font-awesome.css"></script>
+    <script src="https://kit.fontawesome.com/48c0966d39.js" crossorigin="anonymous"></script>  </head>
+    <link rel="stylesheet" href="style.css" type="text/css">
   <body>
     <div class="container">
       <input
@@ -24,6 +24,7 @@
       />
       <button onclick="fetchRecipeData()" id="btn">Search</button><br /><br />
       <button onclick="renderFavorites()" class="favoriteBtn">favorite</button> 
+
       <input type="checkbox" id="dairy" name="dairy"/>
       <label for="dairy">Dairy</label> 
       <input type="checkbox" id="gluten" name="gluten"/>
@@ -44,7 +45,7 @@
             data-id="{{this}}"
             {{/each}}
           />
-          <button class="favorite" data-id="{{idMeal}}">Add Favorite</button>
+          <button class="favorite" data-id="{{idMeal}}" >Add Favorite</button>
           <h2>Ingredients : </h2>
           <div class="ingredients">
           {{#each ingredients}}
@@ -60,10 +61,7 @@
     <script id="favorite-data" type="text/x-handlebars-template">
       {{#each results}}
         <div class="results">
-          <button onclick="deleteFavorite()" class="delete" data-id="{{idMeal}}" >
-            Delete
-          </button>
-        {{!-- <i class="fa-solid fa-trash" data-id="{{mealId}}" ></i> --}}
+         <span class="delete" data-id="{{idMeal}}"><i class="fa-solid fa-trash" ></i></span> 
             <a href="{{href}}">
             <h3>{{title}}</h3>
           </a><br /><br />

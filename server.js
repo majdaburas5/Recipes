@@ -23,6 +23,15 @@ app.get("/getRecipe/:ingredient", function (req, res) {
       `https://recipes-goodness-elevation.herokuapp.com/recipes/ingredient/${ingredients}`
     )
     .then((result) => {
-      res.send(result.data);
+      let recipesArr = result.data.results.map((r) => {
+        return {
+          idMeal: r.idMeal,
+          title: r.title,
+          thumbnail: r.thumbnail,
+          href: r.href,
+          ingredients: r.ingredients,
+        };
+      });
+      res.send(recipesArr);
     });
 });
