@@ -8,6 +8,7 @@ const fetchRecipeData = function () {
     });
 
     checkBox(recipesData);
+    pagination(recipesData);
   });
 };
 
@@ -60,7 +61,7 @@ const renderFavorites = function () {
 
 const checkBox = function (recipesData) {
   $(".recipe-container").empty();
-  const sourceRecipe = $("#recipe-data").html();
+  const sourceRecipe = $("#pagination-data").html();
   const recipeTemplate = Handlebars.compile(sourceRecipe);
 
   let dairyIngredients = [
@@ -136,4 +137,43 @@ const checkBox = function (recipesData) {
     const newHTML = recipeTemplate({ results: recipesData });
     $(".recipe-container").append(newHTML);
   }
+};
+
+const pagination = function (recipesData) {
+  let pages = recipesData.length; //cheese length = 6
+
+  if (pages % 2 == 0) {
+    return pages / 2; //evenPage=3
+  } else {
+    return Math.floor(pages / 2) + 1; //oddPage=0
+  }
+};
+
+let pages1 = { page1: [] };
+
+const renderPagination1 = function (recipesData) {
+  $(".recipe-container").empty();
+  const sourcePage = $("#pagination-data").html();
+  const pageTemplate = Handlebars.compile(sourcePage);
+  let pageNum = pagination();
+  for (let i = 0; i < pageNum; i++) {
+    page1.push(recipesData[i]);
+  }
+  const newHTML = pageTemplate({ results: pages1 });
+  $(".recipe-container").append(newHTML);
+};
+
+let pages2 = { page2: [] };
+
+const renderPagination2 = function (recipesData) {
+  $(".recipe-container").empty();
+  const sourcePage = $("#pagination-data").html();
+  const pageTemplate = Handlebars.compile(sourcePage);
+  let pages = recipesData.length;
+  let pageNum = pagination();
+  for (let i = pageNum; i < pages; i++) {
+    page2.push(recipesData[i]);
+  }
+  const newHTML = pageTemplate({ results: pages2 });
+  $(".recipe-container").append(newHTML);
 };

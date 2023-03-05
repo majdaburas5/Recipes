@@ -74,14 +74,42 @@
           />
           <h2>Ingredients : </h2>
           <div class="ingredients">
-          {{#each ingredients}}
-          <ul>
+            {{#each ingredients}}
+            <ul>
             <li>{{this}}</li><br />
-          </ul>
+            </ul>
+            {{/each}}
+          </div>
+        </div>
+      {{/each}}
+    </script>
+
+    <script id="pagination-data" type="text/x-handlebars-template">
+      {{#each results}}
+        <div class="results">
+          <a href="{{href}}">
+            <h3>{{title}}</h3>
+          </a><br /><br />
+          <img
+            src="{{thumbnail}}"
+            class="picture"
+            {{#each ingredients}}
+            data-id="{{this}}"
+            {{/each}}
+          />
+          <button class="favorite" data-id="{{idMeal}}" >Add Favorite</button>
+          <h2>Ingredients : </h2>
+          <div class="ingredients">
+            {{#each ingredients}}
+            <ul>
+            <li>{{this}}</li><br />
+            </ul>
           {{/each}}
         </div>
         </div>
       {{/each}}
+      <button class="page1" onclick="renderPagination1()" style="width: fit-content;">1</button>
+      <button class="page2" onclick="renderPagination2()" style="width: fit-content;">2</button>
     </script>
     <script src="main.js"></script>
   </body>
