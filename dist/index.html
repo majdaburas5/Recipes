@@ -23,12 +23,14 @@
         placeholder="what's your ingredient ?"
       />
       <button onclick="fetchRecipeData()" id="btn">Search</button><br /><br />
-      <button onclick="renderFavorites()" class="favoriteBtn">favorite</button> 
 
       <input type="checkbox" id="dairy" name="dairy"/>
       <label for="dairy">Dairy</label> 
       <input type="checkbox" id="gluten" name="gluten"/>
       <label for="gluten">Gluten</label>
+      <br><br>
+      <button class="back">Back</button>
+      <button class="next">Next</button>
     </div>
     <div class="recipe-container"></div>
     </div>
@@ -45,7 +47,6 @@
             data-id="{{this}}"
             {{/each}}
           />
-          <button class="favorite" data-id="{{idMeal}}" >Add Favorite</button>
           <h2>Ingredients : </h2>
           <div class="ingredients">
           {{#each ingredients}}
@@ -57,60 +58,8 @@
         </div>
       {{/each}}
     </script>
-
-    <script id="favorite-data" type="text/x-handlebars-template">
-      {{#each results}}
-        <div class="results">
-         <span class="delete" data-id="{{idMeal}}"><i class="fa-solid fa-trash" ></i></span> 
-            <a href="{{href}}">
-            <h3>{{title}}</h3>
-          </a><br /><br />
-          <img
-            src="{{thumbnail}}"
-            class="picture"
-            {{#each ingredients}}
-            data-id="{{this}}"
-            {{/each}}
-          />
-          <h2>Ingredients : </h2>
-          <div class="ingredients">
-            {{#each ingredients}}
-            <ul>
-            <li>{{this}}</li><br />
-            </ul>
-            {{/each}}
-          </div>
-        </div>
-      {{/each}}
-    </script>
-
-    <script id="pagination-data" type="text/x-handlebars-template">
-      {{#each results}}
-        <div class="results">
-          <a href="{{href}}">
-            <h3>{{title}}</h3>
-          </a><br /><br />
-          <img
-            src="{{thumbnail}}"
-            class="picture"
-            {{#each ingredients}}
-            data-id="{{this}}"
-            {{/each}}
-          />
-          <button class="favorite" data-id="{{idMeal}}" >Add Favorite</button>
-          <h2>Ingredients : </h2>
-          <div class="ingredients">
-            {{#each ingredients}}
-            <ul>
-            <li>{{this}}</li><br />
-            </ul>
-          {{/each}}
-        </div>
-        </div>
-      {{/each}}
-      <button class="page1" onclick="renderPagination1()" style="width: fit-content;">1</button>
-      <button class="page2" onclick="renderPagination2()" style="width: fit-content;">2</button>
-    </script>
+    <br>
+    <script src="renderer.js"></script>
     <script src="main.js"></script>
   </body>
 </html>
