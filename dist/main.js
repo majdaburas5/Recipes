@@ -6,12 +6,12 @@ $(".recipe-container").on("click", ".picture", function () {
 
 const fetchRecipeData = () => {
   let input = $("#recipe-input").val();
-  let ingredientInput = $("#ingredient-input").val();
+  let unwantedIngredientInput = $("#unwantedIngredient-input").val();
 
-  if (input.length == 0) {
-    alert("Please fill the input");
-  }
-
+  // if (input.length == 0) {
+  //   $("#noMatch").empty().append("you must enter an ingredient");
+  // }
+  $("#noMatch").empty();
   const checkBoxDairy = document.getElementById("dairy");
   const checkBoxGluten = document.getElementById("gluten");
 
@@ -26,19 +26,23 @@ const fetchRecipeData = () => {
   }
 
   $.get(
-    `/getRecipe/${input}?${queryStringDairy}&${queryStringGluten}&index=${this.index}`
-  ).then((recipesData) => {
-    let ingredientNotInclude = [];
-    for (let recipe of recipesData) {
-      let flag = 0;
-      for (let ingredient of recipe.ingredients) {
-        if (ingredientInput == ingredient) flag++;
+    `/getRecipe/${input}?${queryStringDairy}&${queryStringGluten}&index=${this.index}&unwantedIngredient=${unwantedIngredientInput}`
+  )
+    .then((recipesData) => {
+      let render = new Renderer(recipesData);
+      if (recipesData.length == 0) {
+        $(".recipe-container").empty();
+      } else {
+        render.render();
       }
-      if (flag == 0) ingredientNotInclude.push(recipe);
-    }
-    let render = new Renderer(ingredientNotInclude);
-    render.render();
-  });
+    })
+    .catch((err) => {
+      $(".recipe-container").empty();
+      $("#noMatch").empty().append("you must enter  a valid input");
+      if (err.status == 400) {
+        $(".recipe-container").empty().append(err.responseJSON.error);
+      }
+    });
 };
 
 this.index = 0;

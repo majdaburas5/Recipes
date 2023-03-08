@@ -11,12 +11,7 @@
       crossorigin="anonymous"
     ></script>
     <script src="./handlebars/dist/handlebars.js"></script>
-    <script src="./ajax/lib/ajax.js"></script>
-    <script src="./font-awesome/css/font-awesome.css"></script>
-    <script
-      src="https://kit.fontawesome.com/48c0966d39.js"
-      crossorigin="anonymous"
-    ></script>
+  
   </head>
   <link rel="stylesheet" href="style.css" type="text/css" />
   <body>
@@ -25,21 +20,23 @@
         type="text"
         id="recipe-input"
         placeholder="what's your ingredient ?"
+        style="width: 200px"
       />
+      <br><br>
 
-      <div class="container">
         <input
           type="text"
-          id="ingredient-input"
-          placeholder="what's you dont want in your ingredient ?"
+          id="unwantedIngredient-input"
+          placeholder="what's your unwanted ingredient ?"
+          style="width: 205px"
         />
-
+      <div id="noMatch"></div>
         <button onclick="fetchRecipeData()" id="btn">Search</button><br /><br />
 
         <input type="checkbox" id="dairy" name="dairy" />
-        <label for="dairy">Dairy</label>
+        <label for="dairy">Dairy free</label>
         <input type="checkbox" id="gluten" name="gluten" />
-        <label for="gluten">Gluten</label>
+        <label for="gluten">Gluten free</label>
         <br /><br />
         <button class="back">Back</button>
         <button class="next">Next</button>

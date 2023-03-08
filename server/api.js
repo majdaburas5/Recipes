@@ -10,32 +10,52 @@ const sensitiveRecipes = function (query, recipesArr) {
   let glutenFree = query?.gluten;
   let index = query?.index;
   let allRecipes = [];
+  let unwantedIngredient = query?.unwantedIngredient;
 
   if (dairyFree === "true") {
-    allRecipes = getSensitvieRecipes(recipesArr, consts.dairyIngredients);
+    allRecipes = getSensitvieRecipes(
+      recipesArr,
+      consts.dairyIngredients,
+      unwantedIngredient
+    );
   }
 
   if (glutenFree == "true") {
     if (allRecipes.length == 0) {
-      allRecipes = getSensitvieRecipes(recipesArr, consts.glutenIngredients);
+      allRecipes = getSensitvieRecipes(
+        recipesArr,
+        consts.glutenIngredients,
+        unwantedIngredient
+      );
     } else {
-      allRecipes = getSensitvieRecipes(allRecipes, consts.glutenIngredients);
+      allRecipes = getSensitvieRecipes(
+        allRecipes,
+        consts.glutenIngredients,
+        unwantedIngredient
+      );
     }
   }
   if (glutenFree == undefined && dairyFree == undefined) {
-    return recipesArr.splice(index, consts.magicNumber);
+    return getSensitvieRecipes(recipesArr, [], unwantedIngredient).splice(
+      index,
+      consts.magicNumber
+    );
   }
   return allRecipes.splice(index, consts.magicNumber);
 };
 
-const getSensitvieRecipes = function (recipes, sensitiveIngredients) {
+const getSensitvieRecipes = function (
+  recipes,
+  sensitiveIngredients,
+  unwantedIngredient
+) {
   let Recipes = [];
   for (let recipe of recipes) {
     let isSensitive = isRecipeIncludesSensitiveIngredient(
       recipe.ingredients,
       sensitiveIngredients
     );
-    if (!isSensitive) {
+    if (!isSensitive && !recipe.ingredients.includes(unwantedIngredient)) {
       Recipes.push(recipe);
     }
   }
@@ -57,7 +77,11 @@ const isRecipeIncludesSensitiveIngredient = function (
 };
 
 router.get("/getRecipe/:ingredient", function (req, res) {
-  let ingredients = req.params.ingredient;
+  let ingredients = req.params?.ingredient;
+  if (ingredients.length == 0) {
+    res.status(400).send({ error: "you must enter ingredient" });
+    return;
+  }
   axios.get(`${INGREDIENT_URL}/${ingredients}`).then((result) => {
     let recipesArr = result.data.results.map((recipe) => {
       return {
@@ -68,7 +92,14 @@ router.get("/getRecipe/:ingredient", function (req, res) {
         ingredients: recipe.ingredients,
       };
     });
-    res.send(sensitiveRecipes(req.query, recipesArr));
+    let recipesToSend = sensitiveRecipes(req.query, recipesArr);
+    if (recipesToSend.length == 0) {
+      res
+        .status(400)
+        .send({ error: "there is no recipes for this ingriedient " });
+      return;
+    }
+    res.send(recipesToSend);
   });
 });
 
