@@ -28,9 +28,9 @@ const fetchRecipeData = () => {
   $.get(
     `/getRecipe/${input}?${queryStringDairy}&${queryStringGluten}&index=${this.index}`
   ).then((recipesData) => {
-    let flag = 0;
     let ingredientNotInclude = [];
     for (let recipe of recipesData) {
+      let flag = 0;
       for (let ingredient of recipe.ingredients) {
         if (ingredientInput == ingredient) flag++;
       }
