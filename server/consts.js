@@ -10,6 +10,7 @@ const dairyIngredients = [
   "Custard",
   "Cream Cheese",
 ];
+
 const magicNumber = 3;
 
 module.exports = { glutenIngredients, dairyIngredients, magicNumber };

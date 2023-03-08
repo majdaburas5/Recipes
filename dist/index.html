@@ -13,8 +13,12 @@
     <script src="./handlebars/dist/handlebars.js"></script>
     <script src="./ajax/lib/ajax.js"></script>
     <script src="./font-awesome/css/font-awesome.css"></script>
-    <script src="https://kit.fontawesome.com/48c0966d39.js" crossorigin="anonymous"></script>  </head>
-    <link rel="stylesheet" href="style.css" type="text/css">
+    <script
+      src="https://kit.fontawesome.com/48c0966d39.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <link rel="stylesheet" href="style.css" type="text/css" />
   <body>
     <div class="container">
       <input
@@ -22,17 +26,25 @@
         id="recipe-input"
         placeholder="what's your ingredient ?"
       />
-      <button onclick="fetchRecipeData()" id="btn">Search</button><br /><br />
 
-      <input type="checkbox" id="dairy" name="dairy"/>
-      <label for="dairy">Dairy</label> 
-      <input type="checkbox" id="gluten" name="gluten"/>
-      <label for="gluten">Gluten</label>
-      <br><br>
-      <button class="back">Back</button>
-      <button class="next">Next</button>
-    </div>
-    <div class="recipe-container"></div>
+      <div class="container">
+        <input
+          type="text"
+          id="ingredient-input"
+          placeholder="what's you dont want in your ingredient ?"
+        />
+
+        <button onclick="fetchRecipeData()" id="btn">Search</button><br /><br />
+
+        <input type="checkbox" id="dairy" name="dairy" />
+        <label for="dairy">Dairy</label>
+        <input type="checkbox" id="gluten" name="gluten" />
+        <label for="gluten">Gluten</label>
+        <br /><br />
+        <button class="back">Back</button>
+        <button class="next">Next</button>
+      </div>
+      <div class="recipe-container"></div>
     </div>
     <script id="recipe-data" type="text/x-handlebars-template">
       {{#each results}}
@@ -58,7 +70,7 @@
         </div>
       {{/each}}
     </script>
-    <br>
+    <br />
     <script src="renderer.js"></script>
     <script src="main.js"></script>
   </body>
