@@ -1,4 +1,4 @@
-const magicNumber = 3;
+const PAGE_LIMIT = 3;
 
 $(".recipe-container").on("click", ".picture", function () {
   alert($(this).data().id);
@@ -8,9 +8,6 @@ const fetchRecipeData = () => {
   let input = $("#recipe-input").val();
   let unwantedIngredientInput = $("#unwantedIngredient-input").val();
 
-  // if (input.length == 0) {
-  //   $("#noMatch").empty().append("you must enter an ingredient");
-  // }
   $("#noMatch").empty();
   const checkBoxDairy = document.getElementById("dairy");
   const checkBoxGluten = document.getElementById("gluten");
@@ -26,7 +23,7 @@ const fetchRecipeData = () => {
   }
 
   $.get(
-    `/getRecipe/${input}?${queryStringDairy}&${queryStringGluten}&index=${this.index}&unwantedIngredient=${unwantedIngredientInput}`
+    `/getRecipe/${input}?${queryStringDairy}&${queryStringGluten}&index=${this.index}&unwantedIngredient=${unwantedIngredientInput}&PAGE_LIMIT=${PAGE_LIMIT}`
   )
     .then((recipesData) => {
       let render = new Renderer(recipesData);
@@ -48,11 +45,11 @@ const fetchRecipeData = () => {
 this.index = 0;
 
 $(".back").on("click", () => {
-  if (this.index > 0) this.index -= magicNumber;
+  if (this.index > 0) this.index -= PAGE_LIMIT;
   fetchRecipeData();
 });
 
 $(".next").on("click", () => {
-  this.index += magicNumber;
+  this.index += PAGE_LIMIT;
   fetchRecipeData();
 });

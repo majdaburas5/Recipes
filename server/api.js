@@ -8,6 +8,7 @@ const INGREDIENT_URL =
 const sensitiveRecipes = function (query, recipesArr) {
   let dairyFree = query?.dairy;
   let glutenFree = query?.gluten;
+  let PAGE_LIMIT = parseInt(query?.PAGE_LIMIT);
   let index = query?.index;
   let allRecipes = [];
   let unwantedIngredient = query?.unwantedIngredient;
@@ -38,10 +39,10 @@ const sensitiveRecipes = function (query, recipesArr) {
   if (glutenFree == undefined && dairyFree == undefined) {
     return getSensitvieRecipes(recipesArr, [], unwantedIngredient).splice(
       index,
-      consts.magicNumber
+      PAGE_LIMIT
     );
   }
-  return allRecipes.splice(index, consts.magicNumber);
+  return allRecipes.splice(index, PAGE_LIMIT);
 };
 
 const getSensitvieRecipes = function (
